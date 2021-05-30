@@ -1,4 +1,5 @@
 import { VERSION } from "./runinfo.json";
+import prompts from "prompts";
 import {} from "node-kakao";
 
 export default class LocoaTree {
@@ -8,9 +9,7 @@ export default class LocoaTree {
     this.start();
   }
 
-  start() {
-    this.registerDevice();
-  }
+  start() {}
 
   shutdown() {}
 
@@ -23,8 +22,4 @@ export default class LocoaTree {
           );
         };
   }
-
-  async registerDevice() {}
-
-  tryRegisteringDevice(code: string) {}
 }
