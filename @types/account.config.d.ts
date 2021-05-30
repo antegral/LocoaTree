@@ -7,6 +7,6 @@ export declare interface accountConfig {
     PASSWORD: string;
   };
 
-  RegisteredDeviceName: any;
-  RegisteredUUID: any;
+  RegisteredDeviceName: string;
+  RegisteredUUID: string;
 }
