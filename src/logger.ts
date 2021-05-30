@@ -1,12 +1,12 @@
 import winston from "winston";
 import winstonDaily from "winston-daily-rotate-file";
 
-const logDir = "logs"; // logs 디렉토리 하위에 로그 파일 저장
+const logDir = "../logs"; // logs 디렉토리 하위에 로그 파일 저장
 const { combine, timestamp, printf } = winston.format;
 
 // Define log format
 const logFormat = printf((info) => {
-  return `${info.timestamp} ${info.level}: ${info.message}`;
+  return `${info.timestamp} > [${info.level}]: ${info.message}`;
 });
 
 /*
@@ -30,6 +30,17 @@ const logger = winston.createLogger({
       maxFiles: 30, // 30일치 로그 파일 저장
       zippedArchive: true,
     }),
+
+    // warn 레벨 로그를 저장할 파일 설정
+    new winstonDaily({
+      level: "warn",
+      datePattern: "YYYY-MM-DD",
+      dirname: logDir,
+      filename: `%DATE%.log`,
+      maxFiles: 30, // 30일치 로그 파일 저장
+      zippedArchive: true,
+    }),
+
     // error 레벨 로그를 저장할 파일 설정
     new winstonDaily({
       level: "error",
