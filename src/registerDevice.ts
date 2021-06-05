@@ -1,31 +1,31 @@
 import * as config from "../config/account.config.json";
 import { accountConfig } from "../@types/account.config";
+import { accountData } from "../@types/registerDevice";
 import prompts from "prompts";
 import { writeFileSync } from "fs";
 import { join } from "path";
 import { util, AuthApiClient } from "node-kakao";
+import { logger } from "./logger";
 
 export default class registerDevice {
-  private accountData: any;
+  private accountData: accountData;
   private configData: accountConfig;
 
   constructor() {
     this.configData = config;
     this.accountData = {
-      email: this.configData.KAKAO_ACCOUNT.USERNAME,
-      password: this.configData.KAKAO_ACCOUNT.PASSWORD,
+      email: config.KAKAO_ACCOUNT.USERNAME,
+      password: config.KAKAO_ACCOUNT.PASSWORD,
       forced: true,
     };
   }
 
   async check() {
-    if (
-      this.configData.RegisteredDeviceName ||
-      this.configData.RegisteredUUID
-    ) {
+    if (config.RegisteredDeviceName || config.RegisteredUUID) {
       return (
         await AuthApiClient.create(
-          this.configData.RegisteredDeviceName,
+          this.configData.RegisteredDeviceName ||
+            this.configData.RegisteredDeviceName,
           this.configData.RegisteredUUID
         )
       ).login(this.accountData);
@@ -34,21 +34,43 @@ export default class registerDevice {
     }
   }
 
-  async generateDevice() {
-    await prompts({
+  generateDevice() {
+    return prompts({
       type: "text",
       name: "clientName",
       message: "클라이언트의 이름을 입력해주세요.",
-    }).then((value) => {
-      this.configData.RegisteredDeviceName = value.clientName as string;
-      this.configData.RegisteredUUID = util.randomWin32DeviceUUID();
-      console.log(`this.configData.RegisteredUUID`);
-    });
+    })
+      .then((value) => {
+        logger.info("selected client name: " + value.clientName);
 
-    writeFileSync(
-      join(__dirname, "..", "/config", "/account.config.json"),
-      Buffer.from(JSON.stringify(this.configData))
-    );
+        return {
+          RegisteredDeviceName: value.clientName,
+          RegisteredUUID: util.randomWin32DeviceUUID(),
+        };
+      })
+      .then((registeredDeviceData) => {
+        let configData = {
+          AUTO_RETRY_CONNECT: config.AUTO_RETRY_CONNECT,
+
+          KAKAO_ACCOUNT: {
+            USERNAME: config.KAKAO_ACCOUNT.USERNAME,
+            PASSWORD: config.KAKAO_ACCOUNT.PASSWORD,
+          },
+
+          RegisteredDeviceName: registeredDeviceData.RegisteredDeviceName,
+          RegisteredUUID: registeredDeviceData.RegisteredUUID,
+        };
+        // let assignedData = Object.assign(configData, registeredDeviceData);
+
+        writeFileSync(
+          join(__dirname, "../config/account.config.json"),
+          JSON.stringify(configData)
+        );
+
+        logger.info("config assign completed.");
+
+        return configData;
+      });
   }
 
   async register() {

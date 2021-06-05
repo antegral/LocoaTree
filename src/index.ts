@@ -1,7 +1,7 @@
 import { VERSION } from "./runinfo.json";
 import prompts from "prompts";
 import registerDevice from "./registerDevice";
-import {} from "node-kakao";
+import { logger } from "./logger";
 
 export default class LocoaTree {
   public regDevice: registerDevice;
@@ -13,10 +13,12 @@ export default class LocoaTree {
     this.start();
   }
 
-  start() {
-    this.regDevice.generateDevice().then((data) => {
-      console.log(data);
-    });
+  async start() {
+    (await this.regDevice.check())
+      ? logger.info("Register Device Data is exist.")
+      : this.regDevice.generateDevice().then((data) => {
+          console.log(data);
+        });
   }
 
   shutdown() {}
