@@ -2,12 +2,13 @@ import { VERSION } from "./runinfo.json";
 import prompts from "prompts";
 import registerDevice from "./registerDevice";
 import { logger } from "./logger";
+import LocoaTreeCore from "./core/index.core";
 
 export default class LocoaTree {
   public regDevice: registerDevice;
 
   constructor() {
-    console.log("LocoaTree, Kakao Bot Framework.");
+    console.log("LocoaTree, KakaoTalk Bot Framework.");
     this.readVersion();
     this.regDevice = new registerDevice();
     this.start();
@@ -19,6 +20,7 @@ export default class LocoaTree {
       : this.regDevice.generateDevice().then((data) => {
           console.log(data);
         });
+    new LocoaTreeCore();
   }
 
   shutdown() {}
