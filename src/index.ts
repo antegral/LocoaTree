@@ -14,13 +14,15 @@ export default class LocoaTree {
     this.start();
   }
 
-  async start() {
-    (await this.regDevice.check())
-      ? logger.info("Register Device Data is exist.")
-      : this.regDevice.generateDevice().then((data) => {
-          console.log(data);
-        });
-    new LocoaTreeCore();
+  start() {
+    this.regDevice.check().then(async (loginResult) => {
+      if (loginResult?.status) {
+        new LocoaTreeCore();
+      } else {
+        await this.regDevice.generateDevice();
+        await this.regDevice.register();
+      }
+    });
   }
 
   shutdown() {}
