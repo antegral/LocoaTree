@@ -25,7 +25,9 @@ export default class LocoaTree {
     });
   }
 
-  shutdown() {}
+  shutdown() {
+    throw new String("Shutdown LocoaTree.");
+  }
 
   readVersion() {
     VERSION
