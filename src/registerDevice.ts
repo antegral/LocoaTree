@@ -113,6 +113,7 @@ export default class registerDevice {
       )?.success;
 
       if (registerResult) {
+        logger.info("AuthCode authentication success.");
         writeFile(
           join(__dirname, "../config/account.config.json"),
           JSON.stringify(this.configData),
