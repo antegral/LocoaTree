@@ -1,16 +1,27 @@
 import { logger } from "../logger";
+import { PrismaClient } from "@prisma/client";
 
 export default class LocoaTreeCore {
+  private prisma: PrismaClient;
+
   constructor() {
-    console.log("LocoaTree Core");
-    logger.info("Starting LocoaTree core...");
+    console.log("<< LocoaTree Core >>");
     this.init();
   }
 
-  init() {
-    logger.info("LTCore init check....");
-    return new Promise((res, rej) => {
-      // DB Check Logic
-    });
+  async init() {
+    this.prisma = new PrismaClient();
+    logger.info("LTCore init check...");
+
+    await this.prisma
+      .$connect()
+      .then(() => {
+        logger.info("Database Connected. (1/1)");
+      })
+      .catch(() => {
+        logger.error("Database connect error!");
+      });
+
+    logger.info("All tasks complated. Starting LTCore...");
   }
 }
