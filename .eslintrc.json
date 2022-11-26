@@ -1,0 +1,40 @@
+{
+	"parser": "@typescript-eslint/parser",
+	"plugins": ["react", "@typescript-eslint"],
+	"extends": [
+		"airbnb-base",
+		"plugin:@typescript-eslint/recommended",
+		"plugin:prettier/recommended",
+		"plugin:import/errors", // (Optional)
+		"plugin:import/warnings" // (Optional)
+	],
+	"rules": {
+		"linebreak-style": 0,
+		"import/prefer-default-export": 0,
+		"import/extensions": 0,
+		"no-use-before-define": 0,
+		"import/no-unresolved": 0,
+		"react/react-in-jsx-scope": 0,
+		"no-shadow": 0,
+		"import/no-extraneous-dependencies": 0, // Allowing devDependency Option
+		"@typescript-eslint/explicit-module-boundary-types": 0,
+		"prettier/prettier": ["error", { "endOfLine": "auto" }] // Prettier Roles
+	},
+	"env": {
+		// development environment
+		"browser": true,
+		"es2021": true
+	},
+	"settings": {
+		"import/resolver": {
+			"node": {
+				"extensions": [".js", ".ts"]
+			}
+		}
+	},
+	"parserOptions": {
+		"ecmaVersion": 12,
+		"sourceType": "module"
+	},
+	"indent": ["error", { "tabWidth": 4 }]
+}
