@@ -15,7 +15,9 @@
 		"sourceMap": true,
 		"paths": {
 			"@LtTypes/*": ["@types/*"],
-			"@Logger/*": ["./src/Logger/*"]
+			"@Internal/*": ["src/Core/Internal/*"],
+			"@Service/*": ["src/Core/Service/*"],
+			"@Interactive/*": ["src/Core/Interactive/*"]
 		}
 	}
 }
