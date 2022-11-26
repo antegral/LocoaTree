@@ -1,15 +1,21 @@
 {
-  "include": ["index.ts", "src/**/*", "@types/patreonPost.d.ts"],
-  "exclude": ["node_modules"],
+	"include": ["index.ts", "src/**/*"],
+	"exclude": ["node_modules"],
 
-  "compilerOptions": {
-    "module": "commonjs",
-    "resolveJsonModule": true,
-    "target": "ES2019",
-    "declaration": true,
-    "esModuleInterop": true,
-    "typeRoots": [
-      "./@types"
-    ]
-  },
+	"compilerOptions": {
+		"module": "commonjs",
+		"resolveJsonModule": true,
+		"target": "ES2019",
+		"baseUrl": ".",
+		"outDir": "dist",
+		"declaration": true,
+		"esModuleInterop": true,
+		"typeRoots": ["./@types/Core"],
+		"types": ["Internal", "Service"],
+		"sourceMap": true,
+		"paths": {
+			"@LtTypes/*": ["@types/*"],
+			"@Logger/*": ["./src/Logger/*"]
+		}
+	}
 }
