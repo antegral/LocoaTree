@@ -1,0 +1,20 @@
+{
+	"$schema": "https://json.schemastore.org/swcrc",
+	"exclude": "node_modules",
+	"jsc": {
+		"target": "es2019",
+		"baseUrl": ".",
+		"parser": {
+			"syntax": "typescript",
+			"tsx": false,
+			"decorators": false,
+			"dynamicImport": false
+		},
+		"paths": {
+			"@LtTypes/*": ["@types/*"],
+			"@Internal/*": ["src/Core/Internal/*"],
+			"@Service/*": ["src/Core/Service/*"],
+			"@Interactive/*": ["src/Core/Interactive/*"]
+		}
+	}
+}
