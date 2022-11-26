@@ -2,15 +2,22 @@
   "name": "locoatree",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "./dist/index.js",
   "scripts": {
-    "run": "ts-node index.ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "npx swc -s -d dist -f index.ts --config-file .swcrc --ignore node_modules/**",
+	"build-quiet": "npx swc -s -q -d dist -f index.ts --config-file .swcrc --ignore node_modules/**",
+	"watch": "npx swc -w -s -d dist -f index.ts --config-file .swcrc --ignore node_modules/**"
   },
   "author": "",
   "license": "GNU v3.0",
   "devDependencies": {
+    "@swc/cli": "^0.1.57",
+    "@swc/core": "^1.3.19",
+    "@swc/helpers": "^0.4.14",
     "@types/prompts": "^2.0.12",
+    "chokidar": "^3.5.3",
+    "eslint": "^8.28.0",
+    "regenerator-runtime": "^0.13.11",
     "ts-node": "^10.0.0",
     "tsc": "^2.0.3",
     "typescript": "^4.3.2"
@@ -18,6 +25,7 @@
   "dependencies": {
     "@prisma/client": "^2.26.0",
     "debug": "^4.3.1",
+    "dotenv": "^16.0.3",
     "node-kakao": "^4.2.2",
     "prisma": "^2.24.1",
     "prompts": "^2.4.1",
