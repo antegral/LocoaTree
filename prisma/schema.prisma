@@ -2,46 +2,46 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
 }
 
 generator client {
-  provider = "prisma-client-js"
+    provider = "prisma-client-js"
 }
 
 model users {
-  room      String[]
-  nickname  String     @unique
-  UUID      String     @id @default(uuid())
-  ID        String
-  accounts  accounts[]
-  createdAt DateTime
+    room      String
+    nickname  String     @unique
+    UUID      String     @id @default(uuid())
+    ID        String
+    accounts  accounts[]
+    createdAt DateTime
 }
 
 model accounts {
-  room      String[]
-  nickname  String        @unique
-  UUID      String        @id @default(uuid())
-  ID        String
-  username  String
-  password  String
-  createdAt DateTime
-  authority securityLevel
-  users     users         @relation(fields: [UUID], references: [UUID])
+    room      String[]
+    nickname  String        @unique
+    UUID      String        @id @default(uuid())
+    ID        String
+    username  String
+    password  String
+    createdAt DateTime
+    authority securityLevel
+    users     users         @relation(fields: [UUID], references: [UUID])
 }
 
 model chats {
-  ID               String    @id // Long => string
-  room             String[]
-  writer           String[]
-  createdAt        DateTime
-  deletedAt        DateTime?
-  deleteActionInfo Json?
+    ID               String    @id // Long => string
+    room             String[]
+    writer           String[]
+    createdAt        DateTime
+    deletedAt        DateTime?
+    deleteActionInfo Json?
 }
 
 enum securityLevel {
-  USER
-  ADMIN
-  OWNER
+    USER
+    ADMIN
+    OWNER
 }
