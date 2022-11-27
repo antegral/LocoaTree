@@ -1,20 +1,27 @@
 {
 	"include": ["index.ts", "src/**/*"],
-	"exclude": ["node_modules"],
+	"exclude": ["node_modules", "**/node_modules/*"],
 
 	"compilerOptions": {
+		"strict": true,
 		"module": "commonjs",
+		"esModuleInterop": true,
+		"moduleResolution": "node",
 		"resolveJsonModule": true,
 		"target": "ES2019",
+		"lib": ["ES2021"],
 		"baseUrl": ".",
 		"outDir": "dist",
 		"declaration": true,
-		"esModuleInterop": true,
-		"typeRoots": ["./@types/Core"],
-		"types": ["Internal", "Service"],
+		"skipLibCheck": true,
+		"allowSyntheticDefaultImports": true,
+		"forceConsistentCasingInFileNames": true,
+		"noFallthroughCasesInSwitch": true,
+		"types": ["./@types/Core/internal", "./@types/Core/service"],
+
 		"sourceMap": true,
 		"paths": {
-			"@LtTypes/*": ["@types/*"],
+			"@LtTypes/*": ["@types/Core/*"],
 			"@Internal/*": ["src/Core/Internal/*"],
 			"@Service/*": ["src/Core/Service/*"],
 			"@Interactive/*": ["src/Core/Interactive/*"]
