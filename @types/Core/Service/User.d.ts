@@ -1,6 +1,6 @@
 export declare interface ChatUser {
-	UUID: string;
-	Room: string[];
+	UUID?: string;
+	RoomFrom: string;
 	Nickname: string;
 	ID: string;
 }
@@ -13,6 +13,7 @@ export declare interface LtUser {
 export declare interface LtAccount {
 	Username: string;
 	Password: string;
+	Rooms: string[];
 	CreatedAt: Date;
 	Authority: 'USER' | 'ADMIN' | 'OWNER';
 }
